@@ -44,7 +44,7 @@ Here is the diagram ：
 4. With the configure files in [configs](https://github.com/GabrielXia/telemetry/tree/master/configs) and the [shell command](https://github.com/GabrielXia/telemetry/blob/master/run.sh), I think you can easily set up this system in OSX or Linux
 
 ### Some ideas
-Apart from normal metrics, we could also provide a "light feedback report system", we can create a custum event named `feedbackEvent`, users can write their feedback in a `feedbackOverlay` and the feedback will be sent to server automatically.
+Apart from normal metrics, we could also provide a "light feedback report system", we can create a custom event named `feedbackEvent`, users can write their feedback in a `feedbackOverlay` and the feedback will be sent to server automatically.
 
 ### FeedBack Please
 Are you happy with this system ? Feel free to tell me your feeling either in [Issues](https://github.com/GabrielXia/telemetry/issues) or [forum](http://forum.terasology.org/threads/telemetry-system-collect-analyze-and-report.1799/).
