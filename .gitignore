@@ -1,5 +1,9 @@
 *.DS_Store
-/logstash-5.2.2/
-/kibana-4.6.4-darwin-x86_64/
-/elasticsearch/elasticsearch-2.4.4/
+
+logstash-5.2.2/
+kibana-4.6.4-darwin-x86_64/
+elasticsearch/elasticsearch-2.4.4/
 elasticsearch_cmd
+
+docker/iglu-volume/
+docker/elastic-volume/
