@@ -4,11 +4,34 @@ services:
   snowplow-mini:
     image: mrosack/snowplow-mini-upgraded
     ports:
-    - 80:80
-    - 8080:8080
-    - 9200:9200
-    - 5601:5601
-    - 8081:8081
+      - 80:80
+      - 8080:8080
+      - 5601:5601
+      - 8081:8081
+      - 9200:9200
     volumes:
-    - ./iglu-volume:/var/lib/postgresql/9.6/main/base
-    - ./elastic-volume:/var/lib/elasticsearch
+      - ./elastic-volume:/var/lib/elasticsearch
+    #- ./iglu-volume:/var/lib/postgresql/
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - telemetry
+
+  logstash:
+    build: ./logstash-docker
+    ports:
+      - 9600:9600
+    volumes:
+      - ./logstash-docker/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./logstash-docker/pipeline:/usr/share/logstash/pipeline
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    depends_on:
+      - snowplow-mini
+    networks:
+      - telemetry
+
+networks:
+
+  telemetry:
+    driver: bridge

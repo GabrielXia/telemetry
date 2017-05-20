@@ -1,14 +1,37 @@
-# Telemetry
-An prototype of telemetry system runs in server (using [Snowplow](https://github.com/snowplow/snowplow))
-### Overview
-This system receives events and logs s(exceptions) from clients, selects good events and stores the information in [elasticsearch](https://github.com/elastic/elasticsearch). We can analyze this information via [Kibana](https://github.com/elastic/kibana).
+Telemetry
+=========
 
-This telemetry system bases on [Snowplow-Mini](https://github.com/snowplow/snowplow-mini).
+A docker project of telemetry system using [Snowplow](https://github.com/snowplow/snowplow) and logstash.
+
+Overview
+--------
+
+This system receives events and logs (exceptions) from clients, selects good events and stores the information in [elasticsearch](https://github.com/elastic/elasticsearch). We can visualise them via [Kibana](https://github.com/elastic/kibana).
+
+This telemetry system bases on [Snowplow-Mini](https://github.com/snowplow/snowplow-mini). And it used a [snowplow-mini docker image](https://hub.docker.com/r/mrosack/snowplow-mini/) and an official logstash image.
+
 Check java client prototype in [tracker8](https://github.com/GabrielXia/tracker8), you can also find other trackers in [Snowplow](https://github.com/snowplow/snowplow/tree/master/1-trackers).
 
-### Topology
+Setup
+------
+
+[Docker](https://www.docker.com/get-docker) and [Docker Compose](https://docs.docker.com/compose/install/) required
+1. Download this repository `git clone https://github.com/GabrielXia/telemetry.git`
+2. Change to `docker` directory `cd telemetry/docker`
+3. Build `docker-compose build`
+4. Start `docker-compose up`
+5. End `docker-compose down`
+
+That's easy! If you found problems, don't hesitate an [issue](https://github.com/GabrielXia/telemetry/issues)
+
+Test
+----
+
+Topology
+--------
+
 Here is the diagram ：
-![](pictures/server.jpg)
+![](pictures/telemetry-docker.jpg)
 - Collector([snowplow-stream-collector-0.9.0](https://github.com/snowplow/snowplow/tree/master/2-collectors/scala-stream-collector)) :
   - Collects events from clients on port 8000
   - Sends "good" event to `raw-events-pipe`
@@ -36,15 +59,3 @@ Here is the diagram ：
   - Provides data to kibana
 - Kibana([kibana-4.6.4-darwin-x86_64](https://github.com/elastic/kibana))
   - A browser-based analytics and search dashboard
-
-### Set up
-1. You need to set up [elasticsearch](https://github.com/elastic/elasticsearch), [kibana](https://github.com/elastic/kibana), and [logstash](https://github.com/elastic/logstash)
-2. You can find snowplow collect, enrich and sink either here or in [Snowplow](https://github.com/snowplow/snowplow)
-3. To set up iglu, you need also to set up [postgresql]( https://www.postgresql.org/), see detail [here](https://github.com/snowplow/iglu/wiki/Scala-repo)
-4. With the configure files in [configs](https://github.com/GabrielXia/telemetry/tree/master/configs) and the [shell command](https://github.com/GabrielXia/telemetry/blob/master/run.sh), I think you can easily set up this system in OSX or Linux
-
-### Some ideas
-Apart from normal metrics, we could also provide a "light feedback report system", we can create a custom event named `feedbackEvent`, users can write their feedback in a `feedbackOverlay` and the feedback will be sent to server automatically.
-
-### FeedBack Please
-Are you happy with this system ? Feel free to tell me your feeling either in [Issues](https://github.com/GabrielXia/telemetry/issues) or [forum](http://forum.terasology.org/threads/telemetry-system-collect-analyze-and-report.1799/).
