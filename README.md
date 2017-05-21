@@ -22,10 +22,32 @@ Setup
 4. Start `docker-compose up`
 5. End `docker-compose down`
 
-That's easy! If you found problems, don't hesitate an [issue](https://github.com/GabrielXia/telemetry/issues)
+That's easy! If you found problems, don't hesitate to leave an [issue](https://github.com/GabrielXia/telemetry/issues)
 
 Test
 ----
+
+#### Testing logstash
+
+- Clone repository [tracker8](https://github.com/GabrielXia/tracker8): `git clone https://github.com/GabrielXia/tracker8.git`
+- Import as a gradle project
+- run `tracker8/src/main/java/LogstashTest.java` which will send error log to the telemetry system
+
+#### Testing metric event
+
+- Clone repository [tracker8](https://github.com/GabrielXia/tracker8): `git clone https://github.com/GabrielXia/tracker8.git`
+- Import as a gradle project
+- run `tracker8/src/main/java/trackerMain.java` which will send fake metric to the telemetry system
+- You can using snowplow-mini ui: go to http://localhost:80 `Example events` page, and press the buttons
+
+#### Verify metrics are sent
+
+- using `curl 'localhost:9200/_cat/indices?v'` to see the indexes in Elasticsearch
+- Go to kibana page: http://localhost:5601. You might have to firstly configure the index pattern
+  - go to `Settings` page, choose `Index contains time-based events`
+  - In `Index name or pattern`, enter `logstash-*` then in `Time-field name` choose `timestamp` to visualise log data
+  - In `Index name or pattern`, enter `good` then in `Time-field name` choose `collector_tstamp` to visualise good metric data
+  - In `Index name or pattern`, enter `bad` then in `Time-field name` choose `failure_tstamp` to visualise bad metric data
 
 Topology
 --------
