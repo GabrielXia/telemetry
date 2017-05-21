@@ -2,7 +2,7 @@ version: "3"
 
 services:
   snowplow-mini:
-    image: mrosack/snowplow-mini-upgraded
+    build: ./snowplow-docker
     ports:
       - 80:80
       - 8080:8080
@@ -10,8 +10,8 @@ services:
       - 8081:8081
       - 9200:9200
     volumes:
-      - ./elastic-volume:/var/lib/elasticsearch
-    #- ./iglu-volume:/var/lib/postgresql/
+      - ./snowplow-docker/elasticsearch:/var/lib/elasticsearch
+      #- ./snowplow-docker/postgresql:/var/lib/postgresql
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
     networks:
