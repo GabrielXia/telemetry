@@ -12,7 +12,20 @@
             "uri": "http://iglucentral.com"
           }
         }
+      },
+      {
+        "name": "Iglu-terasology",
+        "priority": 0,
+        "vendorPrefixes": [
+          "org.terasology"
+        ],
+        "connection": {
+          "http": {
+            "uri": "http://iglu:8080/api"
+          }
+        }
       }
+
     ]
   }
 }
