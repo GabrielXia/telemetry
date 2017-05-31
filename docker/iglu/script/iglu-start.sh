@@ -9,7 +9,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
 EOSQL
 
 echo "Initialising postgres data base"
-java -Dconfig.file=/etc/iglu/config/application.conf -jar /opt/iglu/iglu-server-0.2.0.jar com.snowplowanalytics.iglu.server.Boot &
+java -Dconfig.file=/etc/iglu/config/application.conf -jar /opt/iglu/iglu.jar com.snowplowanalytics.iglu.server.Boot &
 
 sleep 60
 
