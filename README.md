@@ -8,8 +8,6 @@ Overview
 
 This system receives events and logs (exceptions) from clients, selects good events and stores the information in [elasticsearch](https://github.com/elastic/elasticsearch). We can visualise them via [Kibana](https://github.com/elastic/kibana).
 
-This telemetry system bases on [Snowplow-Mini](https://github.com/snowplow/snowplow-mini). And it used a [snowplow-mini docker image](https://hub.docker.com/r/mrosack/snowplow-mini/) and an official logstash image.
-
 Check java client prototype in [tracker8](https://github.com/GabrielXia/tracker8), you can also find other trackers in [Snowplow](https://github.com/snowplow/snowplow/tree/master/1-trackers).
 
 Setup
@@ -53,7 +51,7 @@ Topology
 --------
 
 Here is the diagram ：
-![](pictures/telemetry-docker.jpg)
+![](pictures/server.jpg)
 - Collector([snowplow-stream-collector-0.9.0](https://github.com/snowplow/snowplow/tree/master/2-collectors/scala-stream-collector)) :
   - Collects events from clients on port 8000
   - Sends "good" event to `raw-events-pipe`
