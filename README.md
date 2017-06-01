@@ -20,6 +20,8 @@ Setup
 4. Start `docker-compose up`
 5. End `docker-compose down`
 
+**Note** Don't forget to `docker-compose down` to delete all the docker containers! Or there will be issues like in `iglu` uses the ancient container and doesn't set up correctlly
+
 That's easy! If you found problems, don't hesitate to leave an [issue](https://github.com/GabrielXia/telemetry/issues)
 
 Test

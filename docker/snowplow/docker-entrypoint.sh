@@ -26,7 +26,7 @@ echo "Starting enrich"
 cat "$raw_events_pipe" | $enrich_cmd > "$enriched_pipe" 2> "$bad_1_pipe" &
 
 echo "Starting elastic good"
-cat "$enriched_pipe" | $elasticsearch_good_cmd 2> "$bad_1_pipe" &
+cat "$enriched_pipe" | $elasticsearch_good_cmd &
 
 echo "Starting elastic bad"
 cat "$bad_1_pipe" | $elasticsearch_bad_cmd &
