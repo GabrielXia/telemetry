@@ -1,0 +1,58 @@
+{
+  "$schema": "/schemas/org.terasology/systemContext/jsonschema/1-0-0#",
+  "description": "Schema for the HW & SW information of a client player",
+  "self": {
+    "vendor": "org.terasology",
+    "name": "systemContext",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "type": "object",
+  "properties": {
+    "osName": {
+      "type": "string"
+    },
+    "osVersion": {
+      "type": "string"
+    },
+    "osArchitecture": {
+      "type": "string"
+    },
+    "javaVendor": {
+      "type":"string"
+    },
+    "javaVersion": {
+      "type":"string"
+    },
+    "jvmName":{
+      "type":"string"
+    },
+    "jvmVersion":{
+      "type":"string"
+    },
+    "openGLVendor": {
+      "type":"string"
+    },
+    "openGLRenderer":{
+      "type":"string"
+    },
+    "openGLVersion":{
+      "type":"string"
+    },
+    "processorNumbers":{
+      "type":"integer",
+      "minimum":0
+    },
+    "memoryMax": {
+      "type":"integer"
+    },
+    "JVMargs":{
+      "type":"array",
+      "items":{
+        "type":"string"
+      }
+    }
+  },
+  "minProperties": 1,
+  "additionalProperties": false
+}
