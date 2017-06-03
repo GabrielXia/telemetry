@@ -45,14 +45,8 @@
     },
     "memoryMax": {
       "type":"integer"
-    },
-    "JVMargs":{
-      "type":"array",
-      "items":{
-        "type":"string"
-      }
     }
   },
   "minProperties": 1,
-  "additionalProperties": false
+  "additionalProperties": true
 }
