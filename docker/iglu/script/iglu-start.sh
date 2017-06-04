@@ -11,13 +11,15 @@ EOSQL
 echo "Initialising postgres data base"
 java -Dconfig.file=/etc/iglu/config/application.conf -jar /opt/iglu/iglu.jar com.snowplowanalytics.iglu.server.Boot &
 
-sleep 60
+sleep 5
 
-VALUE=$(PGPASSWORD=snowplow psql  -v ON_ERROR_STOP=1 --username=snowplow --dbname=iglu <<-EOSQL
-    INSERT INTO apikeys (uid, vendor_prefix, permission, createdat) VALUES ('980ae3ab-3aba-4ffe-a3c2-3b2e24e2ffce','*','super',current_timestamp);
-EOSQL)
+until PGPASSWORD=snowplow psql --username=snowplow --dbname=iglu -c "INSERT INTO apikeys (uid, vendor_prefix, permission, createdat) VALUES ('980ae3ab-3aba-4ffe-a3c2-3b2e24e2ffce','*','super',current_timestamp);"
+do
+  >&2 echo "iglu not available, will try later"
+  sleep 5
+done
 
-echo $VALUE
+echo "Insert apikeys for iglu successfully"
 
-echo "uploading terasology event schemas"
+echo "Uploading terasology event schemas"
 /opt/iglu/iglu-upload.sh http://iglu:8080 980ae3ab-3aba-4ffe-a3c2-3b2e24e2ffce /etc/iglu/iglu-terasology/schemas
