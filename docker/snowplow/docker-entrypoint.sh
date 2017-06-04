@@ -10,6 +10,11 @@ snowplow-elasticsearch-sink.jar --config /etc/snowplow/config/elasticsearch-sink
 elasticsearch_bad_cmd="java -jar -Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog -Dorg.apache.commons.logging.simplelog.defaultlog=off \
 snowplow-elasticsearch-sink.jar --config /etc/snowplow/config/elasticsearch-sink-bad.hocon"
 
+# log path
+elaticsearch_sink_good_stdout_log="/var/log/elaticsearch_sink_good.log"
+elaticsearch_sink_good_stderr_log="/var/log/elaticsearch_sink_good.err"
+elaticsearch_sink_bad_stdout_log="/var/log/elaticsearch_sink_bad.log"
+elaticsearch_sink_bad_stderr_log="/var/log/elaticsearch_sink_bad.err"
 
 raw_events_pipe="/pipe/raw_events_pipe"
 enriched_pipe="/pipe/enriched_pipe"
@@ -26,10 +31,10 @@ echo "Starting enrich"
 cat "$raw_events_pipe" | $enrich_cmd > "$enriched_pipe" 2> "$bad_1_pipe" &
 
 echo "Starting elastic good"
-cat "$enriched_pipe" | $elasticsearch_good_cmd &
+cat "$enriched_pipe" | $elasticsearch_good_cmd >> "$elaticsearch_sink_good_stdout_log" 2>> "$elaticsearch_sink_good_stderr_log" &
 
 echo "Starting elastic bad"
-cat "$bad_1_pipe" | $elasticsearch_bad_cmd &
+cat "$bad_1_pipe" | $elasticsearch_bad_cmd >> "$elaticsearch_sink_bad_stdout_log" 2>> "$elaticsearch_sink_bad_stderr_log" &
 
 
 while true;do sleep 5;done

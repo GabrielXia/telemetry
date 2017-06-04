@@ -1,6 +1,8 @@
 #!/bin/sh
-
 set -e
+
+stdout_log="/var/run/postgresql/iglu.log"
+stderr_log="/var/run/postgresql/iglu.err"
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
     CREATE USER snowplow PASSWORD 'snowplow';
@@ -9,7 +11,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
 EOSQL
 
 echo "Initialising postgres data base"
-java -Dconfig.file=/etc/iglu/config/application.conf -jar /opt/iglu/iglu.jar com.snowplowanalytics.iglu.server.Boot &
+java -Dconfig.file=/etc/iglu/config/application.conf -jar /opt/iglu/iglu.jar com.snowplowanalytics.iglu.server.Boot >> "$stdout_log" 2>>"$stderr_log" &
 
 sleep 5
 
