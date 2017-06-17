@@ -37,6 +37,8 @@ COPY config/ /etc/snowplow/config/
 COPY docker-entrypoint.sh /opt/snowplow/
 RUN chmod +x /opt/snowplow/docker-entrypoint.sh
 
+RUN apk add --update curl
+
 EXPOSE 80
 
 ENTRYPOINT ["/opt/snowplow/docker-entrypoint.sh"]

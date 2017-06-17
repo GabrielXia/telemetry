@@ -11,10 +11,10 @@ elasticsearch_bad_cmd="java -jar -Dorg.apache.commons.logging.Log=org.apache.com
 snowplow-elasticsearch-sink.jar --config /etc/snowplow/config/elasticsearch-sink-bad.hocon"
 
 # log path
-elaticsearch_sink_good_stdout_log="/var/log/elaticsearch_sink_good.log"
-elaticsearch_sink_good_stderr_log="/var/log/elaticsearch_sink_good.err"
-elaticsearch_sink_bad_stdout_log="/var/log/elaticsearch_sink_bad.log"
-elaticsearch_sink_bad_stderr_log="/var/log/elaticsearch_sink_bad.err"
+elaticsearch_sink_good_stdout_log="/var/log/elasticsearch_sink_good.log"
+elaticsearch_sink_good_stderr_log="/var/log/elasticsearch_sink_good.err"
+elaticsearch_sink_bad_stdout_log="/var/log/elasticsearch_sink_bad.log"
+elaticsearch_sink_bad_stderr_log="/var/log/elasticsearch_sink_bad.err"
 
 raw_events_pipe="/pipe/raw_events_pipe"
 enriched_pipe="/pipe/enriched_pipe"
@@ -24,17 +24,37 @@ mkfifo "$raw_events_pipe"
 mkfifo "$enriched_pipe"
 mkfifo "$bad_1_pipe"
 
-echo "Starting collector"
-$collector_cmd > "$raw_events_pipe" 2> "$bad_1_pipe" &
-
-echo "Starting enrich"
-cat "$raw_events_pipe" | $enrich_cmd > "$enriched_pipe" 2> "$bad_1_pipe" &
-
-echo "Starting elastic good"
-cat "$enriched_pipe" | $elasticsearch_good_cmd >> "$elaticsearch_sink_good_stdout_log" 2>> "$elaticsearch_sink_good_stderr_log" &
-
-echo "Starting elastic bad"
+sleep 30
+echo "Starting snowplow elasticseach sink bad"
 cat "$bad_1_pipe" | $elasticsearch_bad_cmd >> "$elaticsearch_sink_bad_stdout_log" 2>> "$elaticsearch_sink_bad_stderr_log" &
 
+echo "Starting snowplow elasticsearch sink good"
+cat "$enriched_pipe" | $elasticsearch_good_cmd >> "$elaticsearch_sink_good_stdout_log" 2>> "$elaticsearch_sink_good_stderr_log" &
+
+echo "Starting snowplow stream enrich"
+cat "$raw_events_pipe" | $enrich_cmd >> "$enriched_pipe" 2>> "$bad_1_pipe" &
+
+echo "Starting snowplow stream collector"
+$collector_cmd  >> "$raw_events_pipe" 2>> "$bad_1_pipe" &
+
+# In case of exceptions
+sleep 60
+until curl http://localhost:80/health
+do
+  echo "Collector shuts down, will try set up again"
+
+  echo "Starting snowplow elasticseach sink bad"
+  cat "$bad_1_pipe" | $elasticsearch_bad_cmd >> "$elaticsearch_sink_bad_stdout_log" 2>> "$elaticsearch_sink_bad_stderr_log" &
+
+  echo "Starting snowplow elasticseach sink good"
+  cat "$enriched_pipe" | $elasticsearch_good_cmd >> "$elaticsearch_sink_good_stdout_log" 2>> "$elaticsearch_sink_good_stderr_log" &
+
+  echo "Starting snowplow stream enrich"
+  cat "$raw_events_pipe" | $enrich_cmd >> "$enriched_pipe" 2>> "$bad_1_pipe" &
+
+  echo "Starting snowplow stream collector"
+  $collector_cmd  >> "$raw_events_pipe" 2>> "$bad_1_pipe" &
+  sleep 60
+done
 
 while true;do sleep 5;done
