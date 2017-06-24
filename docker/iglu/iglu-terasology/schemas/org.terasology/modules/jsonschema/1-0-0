@@ -1,0 +1,18 @@
+{
+  "$schema": "/schemas/org.terasology/modules/jsonschema/1-0-0#",
+  "description": "Includes the modules used in the game",
+  "self": {
+    "vendor": "org.terasology",
+    "name": "modules",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "type": "object",
+  "properties": {
+    "engine": {
+      "type":"string"
+    }
+  },
+  "minProperties": 1,
+  "additionalProperties": true
+}
