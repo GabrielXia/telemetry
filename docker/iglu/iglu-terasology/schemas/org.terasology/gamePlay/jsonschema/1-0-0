@@ -1,0 +1,21 @@
+{
+  "$schema": "/schemas/org.terasology/gamePlay/jsonschema/1-0-0#",
+  "description": "Schema for the player's game play statistics",
+  "self": {
+    "vendor": "org.terasology",
+    "name": "gamePlay",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "type": "object",
+  "properties": {
+    "distanceTraveled": {
+      "type": "number"
+    },
+    "playTimeMinute": {
+      "type": "integer"
+    }
+  },
+  "minProperties": 1,
+  "additionalProperties": true
+}

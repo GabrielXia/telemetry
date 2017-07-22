@@ -1,0 +1,15 @@
+{
+  "$schema": "/schemas/org.terasology/blockDestroyed/jsonschema/1-0-0#",
+  "description": "The number of blocks destroyed by the player",
+  "self": {
+    "vendor": "org.terasology",
+    "name": "blockDestroyed",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "type": "object",
+  "properties": {
+  },
+  "minProperties": 0,
+  "additionalProperties": true
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "/schemas/org.terasology/blockPlaced/jsonschema/1-0-0#",
+  "description": "The number of blocks placed by the player",
+  "self": {
+    "vendor": "org.terasology",
+    "name": "blockPlaced",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "type": "object",
+  "properties": {
+  },
+  "minProperties": 0,
+  "additionalProperties": true
+}

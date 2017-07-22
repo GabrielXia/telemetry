@@ -1,0 +1,30 @@
+{
+  "$schema": "/schemas/org.terasology/gameConfiguration/jsonschema/1-0-0#",
+  "description": "Schema for the player's configuration in game",
+  "self": {
+    "vendor": "org.terasology",
+    "name": "gameConfiguration",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "type": "object",
+  "properties": {
+    "worldGenerator": {
+      "type": "string"
+    },
+    "networkMode": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "playerHeight": {
+      "type": "number"
+    },
+    "playerEyeHeight": {
+      "type": "number"
+    }
+  },
+  "minProperties": 1,
+  "additionalProperties": true
+}
