@@ -39,7 +39,7 @@ $collector_cmd  >> "$raw_events_pipe" 2>> "$bad_1_pipe" &
 
 # In case of exceptions
 sleep 60
-until curl http://localhost:80/health
+until curl http://localhost:14654/health
 do
   echo "Collector shuts down, will try set up again"
 

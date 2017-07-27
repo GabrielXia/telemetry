@@ -49,7 +49,7 @@ services:
   snowplow:
     build: snowplow/
     ports:
-      - 80:80
+      - 14654:14654
     networks:
       - telemetry
     depends_on:
