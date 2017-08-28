@@ -1,9 +1,9 @@
 {
-  "$schema": "/schemas/org.terasology/monsterKilled/jsonschema/1-0-0#",
-  "description": "The number of monsters killed by the player",
+  "$schema": "/schemas/org.terasology/creatureKilled/jsonschema/1-0-0#",
+  "description": "The number of creatures killed by the player",
   "self": {
     "vendor": "org.terasology",
-    "name": "monsterKilled",
+    "name": "creatureKilled",
     "format": "jsonschema",
     "version": "1-0-0"
   },
