@@ -1,14 +1,20 @@
 {
-  "$schema": "/schemas/org.terasology/apiTestMap/jsonschema/1-0-0#",
+  "$schema": "/schemas/org.terasology/nonMap/jsonschema/1-0-0#",
   "description": "A metric used to test the telemetry api",
   "self": {
     "vendor": "org.terasology",
-    "name": "apiTestMap",
+    "name": "nonMap",
     "format": "jsonschema",
     "version": "1-0-0"
   },
   "type": "object",
   "properties": {
+    "testField": {
+      "type": "string"
+    },
+    "sayHello": {
+      "type": "string"
+    }
   },
   "minProperties": 0,
   "additionalProperties": true
